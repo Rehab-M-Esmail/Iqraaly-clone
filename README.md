@@ -1,0 +1,2 @@
+# Iqraaly-clone
+Cloning Iqraaly 
