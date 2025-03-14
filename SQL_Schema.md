@@ -1,5 +1,8 @@
--- 1. Users Table (Includes Subscription Support)
+This document outlines the SQL schema for Iqraaly
 
+## 1. Users Table (Includes Subscription Support)
+
+```sql
 CREATE TABLE Users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
@@ -10,8 +13,6 @@ CREATE TABLE Users (
     subscription_expiry DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
--- 2. Audiobooks Table
 
 CREATE TABLE Audiobooks (
     book_id SERIAL PRIMARY KEY,
@@ -27,8 +28,6 @@ CREATE TABLE Audiobooks (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 3. Podcasts Table
-
 CREATE TABLE Podcasts (
     podcast_id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -38,8 +37,6 @@ CREATE TABLE Podcasts (
     episode_count INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
--- 4. Episodes Table
 
 CREATE TABLE Episodes (
     episode_id SERIAL PRIMARY KEY,
@@ -51,8 +48,6 @@ CREATE TABLE Episodes (
     release_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 5. Reviews Table
-
 CREATE TABLE Reviews (
     review_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
@@ -63,8 +58,6 @@ CREATE TABLE Reviews (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 6. Playback History Table
-
 CREATE TABLE PlaybackHistory (
     history_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
@@ -74,8 +67,6 @@ CREATE TABLE PlaybackHistory (
     last_played TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 7. Downloads Table (For Offline Mode)
-
 CREATE TABLE Downloads (
     download_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES Users(user_id) ON DELETE CASCADE,
@@ -83,8 +74,6 @@ CREATE TABLE Downloads (
     episode_id INT REFERENCES Episodes(episode_id) ON DELETE CASCADE,
     download_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
--- 8. AI Recommendations Table
 
 CREATE TABLE Recommendations (
     recommendation_id SERIAL PRIMARY KEY,
