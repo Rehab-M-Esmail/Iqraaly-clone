@@ -1,7 +1,17 @@
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255),
+    subscription ENUM('free', 'premium') DEFAULT 'free',
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 CREATE TABLE AudioContent (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
-    type VARCHAR(10) CHECK (type IN ('audiobook', 'podcast')) NOT NULL,
+    type ENUM('audiobook', 'podcast') NOT NULL,
     author VARCHAR(255),
     narrator VARCHAR(255),
     duration INT,
@@ -12,67 +22,64 @@ CREATE TABLE AudioContent (
 );
 
 CREATE TABLE Categories (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE AudioContentCategories (
-    audioContentId INT REFERENCES AudioContent(id) ON DELETE CASCADE,
-    categoryId INT REFERENCES Categories(id) ON DELETE CASCADE,
-    PRIMARY KEY (audioContentId, categoryId)
+    audioContentId INT,
+    categoryId INT,
+    PRIMARY KEY (audioContentId, categoryId),
+    FOREIGN KEY (audioContentId) REFERENCES AudioContent(id) ON DELETE CASCADE,
+    FOREIGN KEY (categoryId) REFERENCES Categories(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Reviews (
-    id SERIAL PRIMARY KEY,
-    userId INT REFERENCES Users(id) ON DELETE CASCADE,
-    audioContentId INT REFERENCES AudioContent(id) ON DELETE CASCADE,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT,
+    audioContentId INT,
     rating INT CHECK (rating BETWEEN 1 AND 5),
     comment TEXT,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (audioContentId) REFERENCES AudioContent(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Payments (
-    id SERIAL PRIMARY KEY,
-    userId INT REFERENCES Users(id) ON DELETE CASCADE,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT,
     amount DECIMAL(10,2),
     currency VARCHAR(10),
-    status VARCHAR(10) CHECK (status IN ('pending', 'completed', 'failed')),
+    status ENUM('pending', 'completed', 'failed'),
     paymentMethod VARCHAR(255),
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE Users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255),
-    subscription VARCHAR(10) CHECK (subscription IN ('free', 'premium')) DEFAULT 'free',
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE ListeningHistory (
-    userId INT REFERENCES Users(id) ON DELETE CASCADE,
-    contentId INT REFERENCES AudioContent(id) ON DELETE CASCADE,
+    userId INT,
+    contentId INT,
     lastPlayed INT,
     progress INT,
-    PRIMARY KEY (userId, contentId)
+    PRIMARY KEY (userId, contentId),
+    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (contentId) REFERENCES AudioContent(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Bookmarks (
-    userId INT REFERENCES Users(id) ON DELETE CASCADE,
-    contentId INT REFERENCES AudioContent(id) ON DELETE CASCADE,
+    userId INT,
+    contentId INT,
     timestamp INT,
-    PRIMARY KEY (userId, contentId)
+    PRIMARY KEY (userId, contentId),
+    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (contentId) REFERENCES AudioContent(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Subscriptions (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     price DECIMAL(10,2),
     currency VARCHAR(10),
-    duration INT CHECK (duration > 0), -- in days
+    duration INT CHECK (duration > 0),
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-
