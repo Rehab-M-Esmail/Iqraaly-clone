@@ -1,7 +1,5 @@
 This document outlines the SQL schema for Iqraaly
 
-## 1. Users Table (Includes Subscription Support)
-
 ```sql
 CREATE TABLE Users (
     user_id SERIAL PRIMARY KEY,
