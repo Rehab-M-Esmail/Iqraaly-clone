@@ -12,20 +12,6 @@ CREATE TABLE Users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Audiobooks (
-    book_id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    narrator VARCHAR(255),
-    genre VARCHAR(100),
-    language VARCHAR(50) DEFAULT 'Arabic',
-    duration INT, -- Duration in minutes
-    file_url VARCHAR(255) NOT NULL,
-    ai_summary TEXT, -- AI-generated summary
-    ai_transcription TEXT, -- AI-powered transcription
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 CREATE TABLE Podcasts (
     podcast_id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
