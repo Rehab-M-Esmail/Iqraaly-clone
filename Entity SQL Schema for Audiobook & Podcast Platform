@@ -1,0 +1,78 @@
+CREATE TABLE AudioContent (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    type VARCHAR(10) CHECK (type IN ('audiobook', 'podcast')) NOT NULL,
+    author VARCHAR(255),
+    narrator VARCHAR(255),
+    duration INT,
+    audioFileUrl TEXT,
+    releaseDate DATE,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Categories (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE AudioContentCategories (
+    audioContentId INT REFERENCES AudioContent(id) ON DELETE CASCADE,
+    categoryId INT REFERENCES Categories(id) ON DELETE CASCADE,
+    PRIMARY KEY (audioContentId, categoryId)
+);
+
+CREATE TABLE Reviews (
+    id SERIAL PRIMARY KEY,
+    userId INT REFERENCES Users(id) ON DELETE CASCADE,
+    audioContentId INT REFERENCES AudioContent(id) ON DELETE CASCADE,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Payments (
+    id SERIAL PRIMARY KEY,
+    userId INT REFERENCES Users(id) ON DELETE CASCADE,
+    amount DECIMAL(10,2),
+    currency VARCHAR(10),
+    status VARCHAR(10) CHECK (status IN ('pending', 'completed', 'failed')),
+    paymentMethod VARCHAR(255),
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255),
+    subscription VARCHAR(10) CHECK (subscription IN ('free', 'premium')) DEFAULT 'free',
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE ListeningHistory (
+    userId INT REFERENCES Users(id) ON DELETE CASCADE,
+    contentId INT REFERENCES AudioContent(id) ON DELETE CASCADE,
+    lastPlayed INT,
+    progress INT,
+    PRIMARY KEY (userId, contentId)
+);
+
+CREATE TABLE Bookmarks (
+    userId INT REFERENCES Users(id) ON DELETE CASCADE,
+    contentId INT REFERENCES AudioContent(id) ON DELETE CASCADE,
+    timestamp INT,
+    PRIMARY KEY (userId, contentId)
+);
+
+CREATE TABLE Subscriptions (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    price DECIMAL(10,2),
+    currency VARCHAR(10),
+    duration INT CHECK (duration > 0), -- in days
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
