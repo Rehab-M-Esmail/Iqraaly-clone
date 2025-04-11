@@ -2,6 +2,7 @@ const express = require('express');
 const Mongoose = require('mongoose');
 var CircularJSON = require('circular-json');
 import '../Database/audiobook.json' assert { type: 'json' };
+import { Book } from './models/BookModel.js';
 //Link to be added later
 Mongoose.connect(""
 ).then(()=>{
@@ -9,32 +10,8 @@ Mongoose.connect(""
 }).catch(()=>{
     console.log("Error with connecting to database");
 })
-
-const BookSchema = new Mongoose.Schema({
-    "title": "String",
-    "type": {
-        "type": "String",
-        "enum": ["audiobook", "podcast"],
-        "required": true
-    },
-    "author": "String",
-    "narrator": "String",
-    "duration": "Number",
-    "audioFileUrl": "String",
-    "categories": ["String"],
-    "releaseDate": "Date",
-    "reviews": [
-        {
-            "userId": "Number",
-            "rating": "Number",
-            "comment": "String"
-        }
-    ],
-    "timestamps": true
-})
 const fs = require('fs');
 const data = JSON.parse(fs.readFileSync('./Database/audiobook.json', 'utf8'));
-const Book = Mongoose.model('Book',BookSchema);
 const router = express.Router();
 router.get('/',async (req, res)=> {
         const Books = await Book.find() ;
