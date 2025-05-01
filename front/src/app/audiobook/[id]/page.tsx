@@ -61,7 +61,7 @@ const BookDetailsPage = () => {
       <div>
           <button
           title="offline mode."
-          onClick={cacheAudio(book.audioUrl)}>
+          onClick={() => cacheAudio(book.audioUrl)}>
           offline
         </button>
       </div>
