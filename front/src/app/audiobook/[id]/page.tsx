@@ -9,6 +9,7 @@ import ReaderCard from "../../../../components/readercard";
 import Rating from "../../../../components/rating";
 import ReviewCard from "../../../../components/reviewcard";
 import { FaHeart } from "react-icons/fa";
+import cacheAudio from "../../../../../offline_mode/cachAudio";
 
 const BookDetailsPage = () => {
   const params = useParams();
@@ -52,9 +53,17 @@ const BookDetailsPage = () => {
       {/* Audio Player */}
       <div className="mt-6">
         <audio controls className="w-full bg-gray-100 rounded-xl shadow-md gap-10">
-          <source src={book.audioUrl} type="audio/mpeg" />
+          <source src={book.audioUrl} type="audio/mpeg"/>
           Your browser does not support the audio element.
         </audio>
+      </div>
+      {  /* Cache Audio Button */}
+      <div>
+          <button
+          title="offline mode."
+          onClick={cacheAudio(book.audioUrl)}>
+          offline
+        </button>
       </div>
 
       {/* Author and Reader Section */}

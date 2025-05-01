@@ -1,4 +1,4 @@
-const Mongoose = require('mongoose');
+import Mongoose from 'mongoose';
 const BookSchema = new Mongoose.Schema({
     "title": "String",
     "type": {
@@ -18,8 +18,8 @@ const BookSchema = new Mongoose.Schema({
             "rating": "Number",
             "comment": "String"
         }
-    ],
-    "timestamps": true
-})
+    ]
+}
+, { timestamps: true });
 
 export const Book = Mongoose.model('Book', BookSchema);
