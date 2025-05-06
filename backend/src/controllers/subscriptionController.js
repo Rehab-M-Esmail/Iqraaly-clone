@@ -1,5 +1,5 @@
-const { SubscriptionPlan } = require("../models/subscriptionplan.model");
-const { UserSubscription } = require("../models/userSubscription.model");
+const { SubscriptionPlan } = require("../models/subscriptionPlanModel");
+const { UserSubscription } = require("../models/userSubscriptionModel");
 
 exports.getAllPlans = async (req, res) => {
   try {
@@ -15,16 +15,16 @@ exports.createSubscription = async (req, res) => {
   try {
     const { planId, paymentDetails } = req.body;
     const userId = req.user.id;
-    
+
     const plan = await SubscriptionPlan.findById(planId);
     if (!plan) {
       return res.status(404).json({ message: "Plan not found" });
     }
-    
+
     const startDate = new Date();
     const endDate = new Date(startDate);
     endDate.setMonth(startDate.getMonth() + 1);
-    
+
     const subscription = new UserSubscription({
       userId,
       planId,
@@ -32,7 +32,7 @@ exports.createSubscription = async (req, res) => {
       startDate,
       endDate,
     });
-    
+
     await subscription.save();
     res.status(201).json({ message: "Subscription created successfully" });
   } catch (error) {

@@ -1,6 +1,10 @@
 const express = require("express");
-const { checkAdmin, createBook, deleteBook } = require("../controllers/admin.controller");
-const { protectRoute, requireAdmin } = require("../middleware/auth.middleware");
+const {
+  checkAdmin,
+  createBook,
+  deleteBook,
+} = require("../controllers/adminController");
+const { protectRoute, requireAdmin } = require("../middleware/authMiddleware");
 const router = express.Router();
 router.use(protectRoute, requireAdmin);
 router.get("/check", checkAdmin);

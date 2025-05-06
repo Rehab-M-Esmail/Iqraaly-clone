@@ -1,7 +1,15 @@
 const express = require("express");
-const { getAllBooks, getBookById, searchBooks, getRecentBooks } = require("../controllers/book.controller");
-const { authenticateJWT, verifyAdmin } = require("../middleware/auth.middleware");
-const { Book } = require("../models/book.model");
+const {
+  getAllBooks,
+  getBookById,
+  searchBooks,
+  getRecentBooks,
+} = require("../controllers/bookController");
+const {
+  authenticateJWT,
+  verifyAdmin,
+} = require("../middleware/authMiddleware");
+const { Book } = require("../models/bookModel");
 const router = express.Router();
 
 router.get("/", authenticateJWT, verifyAdmin, getAllBooks);
