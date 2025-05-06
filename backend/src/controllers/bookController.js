@@ -1,7 +1,7 @@
 const { Book } = require("../models/bookModel");
 const { BookSeries } = require("../models/bookseriesModel");
 
-const getAllBooks = async (req, res) => {
+async function getAllBooks(req, res) {
   try {
     const books = await Book.find();
     res.status(200).json(books);
@@ -9,9 +9,9 @@ const getAllBooks = async (req, res) => {
     console.error("Error in getAllBooks:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-};
+}
 
-const getBookById = async (req, res) => {
+async function getBookById(req, res) {
   try {
     const { id } = req.params;
     const book = await Book.findById(id);
@@ -43,9 +43,9 @@ const getBookById = async (req, res) => {
     console.error("Error fetching book details:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-};
+}
 
-const searchBooks = async (req, res) => {
+async function searchBooks(req, res) {
   try {
     const { query } = req.query;
     if (!query) {
@@ -63,9 +63,9 @@ const searchBooks = async (req, res) => {
     console.error("Error in search:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-};
+}
 
-const getRecentBooks = async (req, res) => {
+async function getRecentBooks(req, res) {
   try {
     const bookSeries = await BookSeries.find().populate("books");
     const allBooks = bookSeries.flatMap((series) => series.books);
@@ -88,7 +88,7 @@ const getRecentBooks = async (req, res) => {
     console.error("Error in getRecentBooks:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-};
+}
 
 module.exports = {
   getAllBooks,

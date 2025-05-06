@@ -38,6 +38,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  console.log("From login in auth.controller", SECRET_KEY);
   const { username, email, password } = req.body;
   try {
     let user;
@@ -62,7 +63,7 @@ const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.json({ token });
+    res.status(200).json({ token });
   } catch (err) {
     console.error("Error in login:", err);
     res.status(500).json({ message: "Internal Server Error" });

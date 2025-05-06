@@ -7,14 +7,14 @@ const {
 } = require("../controllers/bookController");
 const {
   authenticateJWT,
-  verifyAdmin,
+  protectRoute,
+  requireAdmin,
 } = require("../middleware/authMiddleware");
-const { Book } = require("../models/bookModel");
+//const { Book } = require("../models/bookModel");
 const router = express.Router();
-
-router.get("/", authenticateJWT, verifyAdmin, getAllBooks);
-router.get("/search", authenticateJWT, verifyAdmin, searchBooks);
-router.get("/recent", authenticateJWT, getRecentBooks);
-router.get("/:id", getBookById);
+router.get("/", authenticateJWT, requireAdmin, getAllBooks); //checked
+router.get("/search", authenticateJWT, requireAdmin, searchBooks);
+router.get("/recent", authenticateJWT, getRecentBooks); //Ok but no books where retreived
+router.get("/:id", getBookById); //checked
 
 module.exports = router;

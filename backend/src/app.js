@@ -33,15 +33,15 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB error:", err));
 
-app.use("/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/admin", adminRoutes);
-app.use("/api/books", bookRoutes);
-app.use("/api/bookseries", bookseriesRoutes);
-app.use("/api/stats", statRoutes);
-app.use("/api/subscriptions", subscriptionRoutes);
-app.use("/api/favorites", favoriteRoutes);
-app.use("/api/playback", playbackRoutes);
+app.use("/auth", authRoutes); //working
+app.use("/users", userRoutes);
+app.use("/admin", adminRoutes);
+app.use("/books", bookRoutes);
+app.use("/bookseries", bookseriesRoutes);
+app.use("/stats", statRoutes);
+app.use("/subscriptions", subscriptionRoutes);
+app.use("/favorites", favoriteRoutes);
+app.use("/playback", playbackRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend is working!");
