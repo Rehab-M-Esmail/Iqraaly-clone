@@ -7,7 +7,7 @@ const path = require("path");
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 const userRoutes = require("./routes/userRoute");
 const adminRoutes = require("./routes/adminRoute");
@@ -15,7 +15,6 @@ const authRoutes = require("./routes/authRoute");
 const bookRoutes = require("./routes/bookRoute");
 const bookseriesRoutes = require("./routes/bookseriesRoute");
 const statRoutes = require("./routes/statRoute");
-const subscriptionRoutes = require("./routes/subscriptionRoute");
 const favoriteRoutes = require("./routes/favoriteRoute");
 const playbackRoutes = require("./routes/playbackRoute");
 
@@ -39,14 +38,12 @@ app.use("/admin", adminRoutes);
 app.use("/books", bookRoutes);
 app.use("/bookseries", bookseriesRoutes);
 app.use("/stats", statRoutes);
-app.use("/subscriptions", subscriptionRoutes);
 app.use("/favorites", favoriteRoutes);
 app.use("/playback", playbackRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend is working!");
 });
-
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res
