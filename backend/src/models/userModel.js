@@ -8,14 +8,9 @@ const userSchema = new mongoose.Schema(
     fullName: { type: String, required: true },
     profilePhoto: { type: String, default: "/images/default.jpg" },
     bio: { type: String, default: "Tell us about yourself!" },
-    subscription: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "UserSubscription",
-    },
   },
   { timestamps: true }
 );
 
 const User = mongoose.model("User", userSchema);
-
 module.exports = { User };
