@@ -33,12 +33,12 @@ mongoose
   .catch((err) => console.error("MongoDB error:", err));
 
 app.use("/auth", authRoutes); //working
-app.use("/users", userRoutes);
-app.use("/admin", adminRoutes);
-app.use("/books", bookRoutes);
+app.use("/users", userRoutes); // working
+app.use("/admin", adminRoutes); //working
+app.use("/books", bookRoutes); //working
 app.use("/bookseries", bookseriesRoutes);
-app.use("/stats", statRoutes);
-app.use("/favorites", favoriteRoutes);
+app.use("/stats", statRoutes); //working
+app.use("/favorites", favoriteRoutes); //working
 app.use("/playback", playbackRoutes);
 
 app.get("/", (req, res) => {
