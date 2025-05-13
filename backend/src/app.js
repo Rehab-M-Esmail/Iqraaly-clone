@@ -21,7 +21,6 @@ const playbackRoutes = require("./routes/playbackRoute");
 // app.use(cors({ origin: "*" }));
 // app.use(bodyParser.json());
 app.use(express.json());
-//app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: true }));
 
 mongoose
@@ -35,8 +34,8 @@ mongoose
 app.use("/auth", authRoutes); //working
 app.use("/users", userRoutes);
 app.use("/admin", adminRoutes);
-app.use("/books", bookRoutes);
-app.use("/bookseries", bookseriesRoutes);
+app.use("/books", bookRoutes); //checked
+app.use("/bookseries", bookseriesRoutes); //checked
 app.use("/stats", statRoutes);
 app.use("/favorites", favoriteRoutes);
 app.use("/playback", playbackRoutes);
