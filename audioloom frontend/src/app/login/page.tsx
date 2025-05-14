@@ -3,10 +3,46 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaSignInAlt } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+let timeoutId: NodeJS.Timeout;
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+
+
+  async function sendData() {
+    console.log("Sending Data ......");
+    console.log("Delay complete. Calling API...");
+    try {
+      const response = await fetch("http://localhost:3001/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      // Handle response...
+      console.log(`response to login api is ${response.status}`);
+  if (response.ok)
+  {
+    const data = await response.json();
+    console.log("Login successful!", data);
+              alert('Logined successfully!');
+              router.push('/categories');
+  }
+  else
+      { 
+          //alert('Failed to login!');
+          router.push('/signup');
+      }
+    } catch (error) {
+      console.error(error);
+      router.push("/signup");
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,7 +63,7 @@ const LoginPage: React.FC = () => {
         </h1>
         <div className="flex justify-center mb-6">
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={sendData} className="space-y-6">
           <div>
             <label htmlFor="email" className="text-sm font-medium text-white block mb-2">
               Email Address
@@ -59,14 +95,14 @@ const LoginPage: React.FC = () => {
             />
           </div>
           <div>
-            <Link href="/categories" passHref>
+            {/* <Link href="/categories" passHref> */}
               <button
                 type="submit"
                 className="w-full py-3 bg-gradient-to-r from-orange-500 to-blue-950 text-white text-lg font-semibold rounded-lg hover:from-blue-950 hover:to-orange-600 focus:ring-4 focus:ring-orange-300 transition-all duration-300 transform hover:scale-105"
               >
                 Login
               </button>
-            </Link>
+            {/* </Link> */}
           </div>
         </form>
         <div className="mt-6 text-center text-gray-300 space-y-2">

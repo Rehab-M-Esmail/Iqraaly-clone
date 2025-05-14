@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
-
+import axios from 'axios';
 const SignUpPage: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,6 +13,9 @@ const SignUpPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Sign up attempted with:", { name, email, password, confirmPassword });
+  };
+    async function sendData() {
+  const response = await axios.post('http://localhost:3001/auth/register', {password,email,name})
   };
 
   return (
@@ -29,7 +32,7 @@ const SignUpPage: React.FC = () => {
         </h1>
         <div className="flex justify-center mb-6">
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={sendData} className="space-y-6">
           <div>
             <label htmlFor="name" className="text-sm font-medium text-white block mb-2">
               Full Name
