@@ -3,20 +3,49 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
-import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 const SignUpPage: React.FC = () => {
-  const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const router = useRouter();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Sign up attempted with:", { name, email, password, confirmPassword });
+    console.log("Sign up attempted with:", { username, email, password, confirmPassword });
   };
-    async function sendData() {
-  const response = await axios.post('http://localhost:3001/auth/register', {password,email,name})
-  };
+  async function sendData() {
+    console.log("Sending Data ......");
+    console.log("Sign up attempted with:", { username, email, password, confirmPassword });
+    try {
+      const response = await fetch("http://localhost:3001/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email,password }),
+      });
+      // Handle response...
+      console.log(`response to register api is ${response.status}`);
+  if (response.ok)
+  {
+    //alert('Failed to register!');
+    router.push('/signup');
+  }
+  else
+  { 
+    
+    const data = await response.json();
+    console.log("«Sign up successful!", data);
+              //alert('Signued up successfully!');
+              router.push('/');
+  }
+    } catch (error) {
+      console.error(error);
+      router.push('/signup');
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4 overflow-hidden relative">
@@ -41,8 +70,8 @@ const SignUpPage: React.FC = () => {
               type="text"
               id="name"
               name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
               placeholder="Enter your full name"
               className="w-full px-4 py-3 bg-gray-700/50 border border-orange-500/30 text-white placeholder-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all duration-300"
               required
@@ -94,14 +123,12 @@ const SignUpPage: React.FC = () => {
             />
           </div>
           <div>
-            <Link href="/categories" passHref>
               <button
                 type="submit"
                 className="w-full py-3 bg-gradient-to-r from-orange-500 to-blue-950 text-white text-lg font-semibold rounded-lg hover:from-blue-950 hover:to-orange-600 focus:ring-4 focus:ring-orange-300 transition-all duration-300 transform hover:scale-105"
               >
                 Sign Up
               </button>
-            </Link>
           </div>
         </form>
         <div className="mt-6 text-center text-gray-300">
