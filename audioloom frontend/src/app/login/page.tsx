@@ -4,8 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaSignInAlt } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
-let timeoutId: NodeJS.Timeout;
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +13,6 @@ const LoginPage: React.FC = () => {
 
   async function sendData() {
     console.log("Sending Data ......");
-    console.log("Delay complete. Calling API...");
     try {
       const response = await fetch("http://localhost:3001/auth/login", {
         method: "POST",

@@ -5,7 +5,7 @@ const SECRET_KEY = process.env.SECRET_KEY || "your_jwt_secret";
 
 const register = async (req, res) => {
   console.log("From register in auth.controller");
-  const { username, email, password, role, fullName } = req.body;
+  const { username, email, password, role = "user" } = req.body;
   try {
     const existingUser = await User.findOne({
       $or: [{ username: username }, { email: email }],
@@ -26,10 +26,10 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
       role: role || "user",
-      fullName: fullName || username,
+      fullName: username,
     });
     await user.save();
-
+    console.log("Done");
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
     console.error("Error in register:", err);
