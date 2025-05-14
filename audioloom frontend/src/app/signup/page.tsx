@@ -18,6 +18,17 @@ const SignUpPage: React.FC = () => {
   async function sendData() {
     console.log("Sending Data ......");
     console.log("Sign up attempted with:", { username, email, password, confirmPassword });
+    if (!password || !confirmPassword) {
+      alert("Both passwords are required"); // Or you might want to throw an error: throw new Error("Both passwords are required.");
+    }
+    const trimmedPassword = password.trim();
+    const trimmedConfirmPassword = confirmPassword.trim();
+    if (!(trimmedPassword === trimmedConfirmPassword))
+      {
+        alert("passwords aren't matched");
+      return ;
+}
+      
     try {
       const response = await fetch("http://localhost:3001/auth/register", {
         method: "POST",
