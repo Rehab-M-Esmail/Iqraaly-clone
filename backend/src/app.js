@@ -18,7 +18,7 @@ const statRoutes = require("./routes/statRoute");
 const favoriteRoutes = require("./routes/favoriteRoute");
 const playbackRoutes = require("./routes/playbackRoute");
 
-// app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "http://localhost:3000" }));
 // app.use(bodyParser.json());
 app.use(express.json());
 //app.use(express.static(path.join(__dirname, "../public")));

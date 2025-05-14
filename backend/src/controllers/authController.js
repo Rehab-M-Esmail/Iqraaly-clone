@@ -39,16 +39,15 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   console.log("From login in auth.controller", SECRET_KEY);
-  const { username, email, password } = req.body;
+  console.log(req.body);
+  const { email, password } = req.body;
   try {
     let user;
 
     if (email) {
       user = await User.findOne({ email });
-    } else if (username) {
-      user = await User.findOne({ username });
     } else {
-      return res.status(400).json({ message: "Username or email is required" });
+      return res.status(400).json({ message: " email is required" });
     }
 
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
@@ -58,7 +57,7 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
 
     const token = jwt.sign(
-      { id: user._id, username: user.username, role: user.role },
+      { id: user._id, email: user.email, role: user.role },
       SECRET_KEY,
       { expiresIn: "1h" }
     );
