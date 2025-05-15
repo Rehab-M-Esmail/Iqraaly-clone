@@ -13,7 +13,6 @@ const ChatPage: React.FC = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-   
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -30,11 +29,25 @@ const ChatPage: React.FC = () => {
       if(response)
       {
         const responseData = await response.json(); // Or response.json() if your API returns JSON
+        let messageText = '';
+        if (typeof responseData === 'string') {
+          messageText = responseData; // If it's already a string, use it directly.
+        } else if (responseData && responseData.response) {
+          messageText = responseData.response; //  *responseData is an object, and you want the "response" property.*
+        }
+         else if (responseData && responseData.text) {
+          messageText = responseData.text; //  *responseData is an object, and you want the "text" property.*
+        }
+        else {
+          console.warn("Unexpected response structure:", responseData);
+          messageText = "Sorry, I couldn't understand the response."; // Provide a default message
+        }
+        console.log("answer is",responseData);
         setMessages((prevMessages) => [
           ...prevMessages,
           {
             id: prevMessages.length + 1,
-            text: responseData,
+            text: responseData.response,
             sender: 'bot',
           },
         ]);
@@ -52,16 +65,17 @@ const ChatPage: React.FC = () => {
         { id: messages.length + 1, text: prompt, sender: 'user' },
       ]);
       setprompt('');
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: prev.length + 1,
-            text: 'Try "Dune" by Frank Herbert or "The Name of the Wind"!',
-            sender: 'bot',
-          },
-        ]);
-      }, 1000);
+      // setTimeout(() => {
+      //   setMessages((prev) => [
+      //     ...prev,
+      //     {
+      //       id: prev.length + 1,
+      //       text: 'Try "Dune" by Frank Herbert or "The Name of the Wind"!',
+      //       sender: 'bot',
+      //     },
+      //   ]);
+      // }, 1000);
+      sendData();
     }
   };
 
@@ -135,7 +149,7 @@ const ChatPage: React.FC = () => {
               className="flex-1 px-5 py-3 bg-gray-950/50 border border-orange-700/40 text-orange-700 placeholder-orange-700/70 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-700 focus:border-transparent transition-all duration-300"
             />
             <button
-              onClick={sendData}
+              onClick={handleSendMessage}
               className="bg-gradient-to-r from-orange-700 to-orange-600 text-white p-3 rounded-full hover:from-orange-800 hover:to-orange-700 focus:ring-4 focus:ring-orange-700/50 transition-all duration-300 transform hover:scale-110"
             >
               <FaPaperPlane size={20} />

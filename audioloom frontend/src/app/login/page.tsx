@@ -25,8 +25,8 @@ const LoginPage: React.FC = () => {
       console.log(`response to login api is ${response.status}`);
   if (response.ok)
   {
-    const data = await response.json();
-    console.log("Login successful!", data);
+              const data = await response.json();
+              console.log("Login successful!", data);
               alert('Logined successfully!');
               router.push('/categories');
   }
