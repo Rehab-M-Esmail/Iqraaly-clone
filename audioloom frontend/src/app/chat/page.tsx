@@ -7,24 +7,51 @@ const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState([
     { id: 1, text: 'Greetings! Ready to explore audiobooks?', sender: 'bot' },
   ]);
-  const [newMessage, setNewMessage] = useState('');
+  const [prompt, setprompt] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
+   
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
+  async function sendData() {
+    console.log("Sending Data to chatbot......");
+    try {
+      const response = await fetch("http://localhost:3003/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({prompt }),
+      });
+      if(response)
+      {
+        const responseData = await response.json(); // Or response.json() if your API returns JSON
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          {
+            id: prevMessages.length + 1,
+            text: responseData,
+            sender: 'bot',
+          },
+        ]);
+      }
+    }
+    catch(error)
+    {
+      console.log(`Error sending message to chatbot ${error}`);
+    }
+  }
   const handleSendMessage = () => {
-    if (newMessage.trim()) {
+    if (prompt.trim()) {
       setMessages([
         ...messages,
-        { id: messages.length + 1, text: newMessage, sender: 'user' },
+        { id: messages.length + 1, text: prompt, sender: 'user' },
       ]);
-      setNewMessage('');
+      setprompt('');
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
@@ -40,7 +67,7 @@ const ChatPage: React.FC = () => {
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSendMessage();
+      sendData();
     }
   };
 
@@ -101,14 +128,14 @@ const ChatPage: React.FC = () => {
           <div className="flex items-center space-x-2">
             <input
               type="text"
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
+              value={prompt}
+              onChange={(e) => setprompt(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message..."
               className="flex-1 px-5 py-3 bg-gray-950/50 border border-orange-700/40 text-orange-700 placeholder-orange-700/70 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-700 focus:border-transparent transition-all duration-300"
             />
             <button
-              onClick={handleSendMessage}
+              onClick={sendData}
               className="bg-gradient-to-r from-orange-700 to-orange-600 text-white p-3 rounded-full hover:from-orange-800 hover:to-orange-700 focus:ring-4 focus:ring-orange-700/50 transition-all duration-300 transform hover:scale-110"
             >
               <FaPaperPlane size={20} />
