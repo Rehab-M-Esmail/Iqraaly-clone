@@ -10,6 +10,8 @@ import Rating from "../../../../components/rating";
 import ReviewCard from "../../../../components/reviewcard";
 import Navbar from "../../../../components/navbar";
 import { FaHeart } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
+
 
 interface Review {
   user: string;
@@ -25,6 +27,8 @@ const BookDetailsPage = () => {
   const [averageRating, setAverageRating] = useState<number>(0);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [newReview, setNewReview] = useState({ user: "", comment: "" });
+  const router = useRouter();
+
 
   useEffect(() => {
     const found = allBooks.find((b) => b.id === id);
@@ -41,6 +45,37 @@ const BookDetailsPage = () => {
     const newAverage = (averageRating * reviews.length + rating) / totalRatings;
     setAverageRating(Math.round(newAverage * 10) / 10);
   };
+  async function sendData() {
+    console.log("Sending Data ......");
+    try {
+      const rev = newReview.comment;
+      const user=newReview.user;
+      const response = await fetch("http://localhost:3001/books/review", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user,rev,id }),
+      });
+      // Handle response...
+      console.log(`response to review api is ${response.status}`);
+  if (response.ok)
+  {
+    const data = await response.json();
+    console.log("Reviewed !", data);
+              alert('Reviewed successfully!');
+              router.push('/');
+  }
+  else
+      { 
+          alert('Failed to review!');
+          router.push('/');
+      }
+    } catch (error) {
+      console.error(error);
+      router.push("/");
+    }
+  }
 
   const handleReviewSubmit = () => {
     if (newReview.user && newReview.comment) {
@@ -143,6 +178,7 @@ const BookDetailsPage = () => {
             />
             <button
               onClick={handleReviewSubmit}
+              //onClick={sendData}
               className="px-6 py-2 bg-orange-700 text-white rounded-lg hover:bg-orange-800 focus:ring-2 focus:ring-orange-700 transition-all duration-300 transform hover:scale-105 animate-glow"
             >
               Submit Review

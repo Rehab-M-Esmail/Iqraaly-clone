@@ -1,6 +1,5 @@
-const { Book } = require("../models/bookModel");
+const { Book, Review } = require("../models/bookModel");
 const { BookSeries } = require("../models/bookseriesModel");
-
 async function getAllBooks(req, res) {
   try {
     const books = await Book.find();
@@ -89,10 +88,29 @@ async function getRecentBooks(req, res) {
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
+async function addReview(req, res) {
+  try {
+    const { user, comment, book_id } = req.body;
+    if (!user || !comment || !book_id)
+      console.log("Missing argument to add a review");
+    const review = new Review({ user, comment });
+    const book = await Book.findById(book_id);
+    if (!book) {
+      throw new Error("Book not found"); // Handle the case where the book doesn't exist.
+    }
+    book.reviews.push(review);
+    const updatedBook = await book.save();
+    console.log(`Your updated Book is ${updatedBook}`);
+    res.status(200).send(updatedBook);
+  } catch (error) {
+    console.log("Error adding review", error);
+  }
+}
 
 module.exports = {
   getAllBooks,
   getBookById,
   searchBooks,
   getRecentBooks,
+  addReview,
 };
