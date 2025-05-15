@@ -16,7 +16,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"rehab\",\n     \"email\": \"rehab22@gmail.com\",\n     \"password\": \"ay7aga@22421\",\n     \"role\":\"user\",\n     \"fullName\":\" Rehab Mahmoud Esmail\"\n}",
+					"raw": "{\n    \"username\":\"rehb344\",\n     \"email\": \"reha@gmail.com\",\n     \"password\": \"ay7aga@22421\",\n     \"role\":\"user\",\n     \"fullName\":\" Rehab Mahmoud Esmail\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -24,12 +24,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/auth/register",
+					"raw": "http://localhost:3001/auth/register",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"auth",
 						"register"
@@ -48,7 +48,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Add your token here",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTljYzllODAxYWE4MzlhZjZiYmQ3NCIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDY1MjEzNjMsImV4cCI6MTc0NjUyNDk2M30.Scc_cpLSljkgCFADyu3TydvLlABDsjqAH5sBJ7DIGt0",
 						"type": "text"
 					}
 				],
@@ -62,12 +62,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/admin/books",
+					"raw": "http://localhost:3001/admin/books",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"admin",
 						"books"
@@ -86,7 +86,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"rehab\",\n     \"email\": \"rehab22@gmail.com\",\n     \"password\": \"ay7aga@22421\"\n}",
+					"raw": "{\n     \"email\": \"reha@gmail.com\",\n     \"password\": \"ay7aga@22421\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -94,12 +94,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/auth/login",
+					"raw": "http://localhost:3001/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"auth",
 						"login"
@@ -123,12 +123,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/admin/books/6819cecd66425ad1d99f8c53",
+					"raw": "http://localhost:3001/admin/books/6819cecd66425ad1d99f8c53",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"admin",
 						"books",
@@ -147,12 +147,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/books/6819cfc8af0295c91a9ac3fc",
+					"raw": "http://localhost:3001/books/6819cfc8af0295c91a9ac3fc",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"books",
 						"6819cfc8af0295c91a9ac3fc"
@@ -176,12 +176,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/books/",
+					"raw": "http://localhost:3001/books/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"books",
 						""
@@ -200,7 +200,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"admin6\",\n     \"email\": \"admin22@gmail.com\",\n     \"password\": \"ay7agdsewea@22421\",\n     \"role\":\"admin\",\n     \"fullName\":\" admin 22\"\n}",
+					"raw": "{\n    \"username\":\"admin6\",\n     \"email\": \"admin22@gmail.com\",\n     \"password\": \"ay7agdsewea@22421\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -208,15 +208,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/auth/register",
+					"raw": "http://localhost:3001/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"auth",
-						"register"
+						"login"
 					]
 				}
 			},
@@ -237,15 +237,343 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/books/recent",
+					"raw": "http://localhost:3001/books/recent",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"books",
 						"recent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all images in a specific bucket",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bucketName\":\"post-images\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/buckets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"buckets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get recent books",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"ya\",\n    \"Features\":[\"No adds\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/books/recent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"books",
+						"recent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get subscription list",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Add your token here",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"planId\":\n    \"paymentDetails\":{\n        \"name\":\"msh 3rfa\",\n        \"price\":120,\n        \"features\":[\"no ads\"],\n        \"user\":\n            \"id\":1\n        ]\n\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/subscriptions/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"subscriptions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding profile photo",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Add your token here",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "profilePhoto",
+							"type": "file",
+							"src": "postman-cloud:///1f02b966-50b8-4d30-ab45-ccc54de0f230"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a dashboard",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Add your token here",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "profilePhoto",
+							"type": "file",
+							"src": "postman-cloud:///1f02b966-50b8-4d30-ab45-ccc54de0f230"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/stats/dashboard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"stats",
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a book to favorites",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Add your token here",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": {\n        \"id\":1\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/favorites/6819ce1b801aa839af6bbd7b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"favorites",
+						"6819ce1b801aa839af6bbd7b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add subscription",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"<style type=\"text/css\">",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+							"    .tftable tr {background-color:#ffffff;}",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+							"    .tftable tr:hover {background-color:#e0ffff;}",
+							"</style>",
+							"",
+							"<table class=\"tftable\" border=\"1\">",
+							"    <tr>",
+							"        <th>Error Message</th>",
+							"    </tr>",
+							"    <tr>",
+							"        <td>{{response.message}}</td>",
+							"    </tr>",
+							"</table>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"    return {response: pm.response.json()};",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    'planId':\"12232\",\n     'paymentDetails':\n     {\n      'name': \"ay 7aga\",\n      'price': 124,\n      'features':[\"NO ads\"]\n     }\n     'user': {'id':6819d127a096a4b5c583c5ec}\n\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:3001/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add book Review",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"user\": \"Rehab\",\n   \"comment\" : \"To7fa\",\n   \"book_id\":\"6819ce1b801aa839af6bbd7b\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/books/review",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"books",
+						"review"
 					]
 				}
 			},
