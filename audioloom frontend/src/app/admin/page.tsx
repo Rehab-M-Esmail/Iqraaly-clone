@@ -1,10 +1,8 @@
 "use client";
-
 import { useState } from "react";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
-import { FaBook, FaUsers, FaPlus, FaEdit, FaTrash, FaFileUpload } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
-
+import { FaBook, FaUsers, FaPlus, FaEdit, FaTrash, FaFileUpload } from "react-icons/fa";
 
 interface FileMetadata {
   name: string;
@@ -60,22 +58,21 @@ const AdminDashboard = () => {
   const [editBook, setEditBook] = useState<Audiobook | null>(null);
   const [editFile, setEditFile] = useState<File | undefined>(undefined);
   const router = useRouter();
-
-
-  const handleUserActivation = (id: number, active: boolean) => {
-    setUsers((prev) =>
-      prev.map((user) => (user.id === id ? { ...user, active } : user))
-    );
-  };
   async function sendData() {
     console.log("Sending Data ......");
     try {
+      const title = newBook.title;
+      const author = newBook.author;
+      const duration = newBook.duration;
+      const bookseriesId= newBook.id;
+      const genre = newBook.genre;
       const response = await fetch("http://localhost:3001/admin/books", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTlkMTI3YTA5NmE0YjVjNTgzYzVlYyIsImVtYWlsIjoiYWRtaW4yMkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDczMTIzMjMsImV4cCI6MTc0NzMxNTkyM30.LQELrd8OwJp9dxblqLNR4z0726A0t3TS4tF7CWf1Ybs",
         },
-        //body: JSON.stringify({ title, author, bookseriesId, duration, genre }),
+        body: JSON.stringify({ title, author, duration, genre }),
       });
       // Handle response...
       console.log(`response to login api is ${response.status}`);
@@ -96,76 +93,11 @@ const AdminDashboard = () => {
       router.push('/');
     }
   }
-  const handleAddBook = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (
-      newBook.id.trim() &&
-      newBook.title.trim() &&
-      newBook.author.trim() &&
-      newBook.duration.trim() &&
-      newBook.genre.trim()
-    ) {
-      const newAudiobook: Audiobook = {
-        id: parseInt(newBook.id),
-        title: newBook.title,
-        author: newBook.author,
-        duration: newBook.duration,
-        genre: newBook.genre,
-        file: newBook.file ? { name: newBook.file.name, size: newBook.file.size } : undefined,
-      };
-      setAudiobooks((prev) => [...prev, newAudiobook]);
-      setNewBook({ id: "", title: "", author: "", duration: "", genre: "", file: undefined });
-    }
-  };
 
-  const handleDeleteBook = (id: number) => {
-    setAudiobooks((prev) => prev.filter((book) => book.id !== id));
-  };
-
-  const handleEditBook = (book: Audiobook) => {
-    setEditBook(book);
-    setEditFile(undefined);
-  };
-
-  const handleSaveEdit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (
-      editBook &&
-      editBook.id.toString().trim() &&
-      editBook.title.trim() &&
-      editBook.author.trim() &&
-      editBook.duration.trim() &&
-      editBook.genre.trim()
-    ) {
-      setAudiobooks((prev) =>
-        prev.map((book) =>
-          book.id === editBook.id
-            ? {
-                ...editBook,
-                file: editFile ? { name: editFile.name, size: editFile.size } : editBook.file,
-              }
-            : book
-        )
-      );
-      setEditBook(null);
-      setEditFile(undefined);
-    }
-  };
-
-  const handleCancelEdit = () => {
-    setEditBook(null);
-    setEditFile(undefined);
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, isEdit: boolean) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (isEdit) {
-        setEditFile(file);
-      } else {
-        setNewBook((prev) => ({ ...prev, file }));
-      }
-    }
+  const handleUserActivation = (id: number, active: boolean) => {
+    setUsers((prev) =>
+      prev.map((user) => (user.id === id ? { ...user, active } : user))
+    );
   };
 
   const handleAddBook = (e: React.FormEvent) => {
@@ -307,14 +239,7 @@ const AdminDashboard = () => {
             <h3 className="text-xl font-medium text-orange-400 mb-4 animate-glow">
               Add New Audiobook
             </h3>
-            <form onSubmit={handleAddBook} className="flex gap-4 flex-wrap">
-              <input
-                type="number"
-                value={newBook.id}
-                onChange={(e) => setNewBook({ ...newBook, id: e.target.value })}
-                placeholder="ID"
-                className="flex-1 min-w-[200px] p-2 rounded-lg bg-gray-800/70 border border-orange-700/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-600"
-              />
+            <form onSubmit={sendData} className="flex gap-4 flex-wrap">
               <input
                 type="text"
                 value={newBook.title}
@@ -392,87 +317,6 @@ const AdminDashboard = () => {
                           }
                           className="p-2 rounded-lg bg-gray-800/70 border border-orange-700/30 text-white focus:outline-none focus:ring-2 focus:ring-orange-600"
                         />
-                      ) : (
-                        book.id
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-white">
-                      {editBook?.id === book.id ? (
-                        <input
-                          type="text"
-                          value={editBook.title}
-                          onChange={(e) =>
-                            setEditBook({ ...editBook, title: e.target.value })
-                          }
-                          className="p-2 rounded-lg bg-gray-800/70 border border-orange-700/30 text-white focus:outline-none focus:ring-2 focus:ring-orange-600"
-                        />
-                      ) : (
-                        book.title
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-white">
-                      {editBook?.id === book.id ? (
-                        <input
-                          type="text"
-                          value={editBook.author}
-                          onChange={(e) =>
-                            setEditBook({ ...editBook, author: e.target.value })
-                          }
-                          className="p-2 rounded-lg bg-gray-800/70 border border-orange-700/30 text-white focus:outline-none focus:ring-2 focus:ring-orange-600"
-                        />
-                      ) : (
-                        book.author
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-white">
-                      {editBook?.id === book.id ? (
-                        <input
-                          type="text"
-                          value={editBook.duration}
-                          onChange={(e) =>
-                            setEditBook({ ...editBook, duration: e.target.value })
-                          }
-                          className="p-2 rounded-lg bg-gray-800/70 border border-orange-700/30 text-white focus:outline-none focus:ring-2 focus:ring-orange-600"
-                        />
-                      ) : (
-                        book.duration
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-white">
-                      {editBook?.id === book.id ? (
-                        <input
-                          type="text"
-                          value={editBook.genre}
-                          onChange={(e) =>
-                            setEditBook({ ...editBook, genre: e.target.value })
-                          }
-                          className="p-2 rounded-lg bg-gray-800/70 border border-orange-700/30 text-white focus:outline-none focus:ring-2 focus:ring-orange-600"
-                        />
-                      ) : (
-                        book.genre
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-white">
-                      {editBook?.id === book.id ? (
-                        <label className="flex items-center gap-2 bg-gray-800/70 border border-orange-700/30 rounded-lg p-2 cursor-pointer hover:bg-gray-700/70 transition-all duration-300">
-                          <FaFileUpload className="text-orange-700" />
-                          <span className="text-white">
-                            {editFile
-                              ? editFile.name
-                              : book.file
-                              ? book.file.name
-                              : "Upload Audio File"}
-                          </span>
-                          <input
-                            type="file"
-                            accept="audio/*"
-                            onChange={(e) => handleFileChange(e, true)}
-                            className="hidden"
-                          />
-                        </label>
-                      ) : book.file ? (
-                        <span>{book.file.name}</span>
-                      ) : (
                       ) : (
                         book.id
                       )}
@@ -711,6 +555,14 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
+
+
+
+
+
+
+
 
 
 
