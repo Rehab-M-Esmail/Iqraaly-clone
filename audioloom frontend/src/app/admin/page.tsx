@@ -70,7 +70,7 @@ const AdminDashboard = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTlkMTI3YTA5NmE0YjVjNTgzYzVlYyIsImVtYWlsIjoiYWRtaW4yMkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDczMTIzMjMsImV4cCI6MTc0NzMxNTkyM30.LQELrd8OwJp9dxblqLNR4z0726A0t3TS4tF7CWf1Ybs",
+          "Authorization": "",
         },
         body: JSON.stringify({ title, author, duration, genre }),
       });
