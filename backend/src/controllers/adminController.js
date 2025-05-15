@@ -3,23 +3,23 @@ const { BookSeries } = require("../models/bookseriesModel");
 
 const createBook = async (req, res, next) => {
   try {
-    const { title, author, bookseriesId, duration, genre } = req.body;
-
+    const { title, author, duration, genre } = req.body;
+    console.log(title);
     const newBook = new Book({
       title,
       author,
       genre: genre || "Unknown",
       duration,
-      bookseriesId: bookseriesId || null,
+      bookseriesId: null,
     });
 
     const savedBook = await newBook.save();
 
-    if (bookseriesId) {
-      await BookSeries.findByIdAndUpdate(bookseriesId, {
-        $push: { books: savedBook._id },
-      });
-    }
+    // if (bookseriesId) {
+    //   await BookSeries.findByIdAndUpdate(bookseriesId, {
+    //     $push: { books: savedBook._id },
+    //   });
+    // }
 
     res.status(201).json(savedBook);
   } catch (error) {
