@@ -25,8 +25,8 @@ const LoginPage: React.FC = () => {
       console.log(`response to login api is ${response.status}`);
   if (response.ok)
   {
-    const data = await response.json();
-    console.log("Login successful!", data);
+              const data = await response.json();
+              console.log("Login successful!", data);
               alert('Logined successfully!');
               router.push('/categories');
   }
@@ -92,13 +92,14 @@ const LoginPage: React.FC = () => {
             />
           </div>
           <div>
-            {/* <Link href="/categories" passHref> */}
+            <Link href="/categories" passHref>
               <button
                 type="submit"
                 className="w-full py-3 bg-gradient-to-r from-orange-500 to-blue-950 text-white text-lg font-semibold rounded-lg hover:from-blue-950 hover:to-orange-600 focus:ring-4 focus:ring-orange-300 transition-all duration-300 transform hover:scale-105"
               >
                 Login
               </button>
+              </Link>
             {/* </Link> */}
           </div>
         </form>
