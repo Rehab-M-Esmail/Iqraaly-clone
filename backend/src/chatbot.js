@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 const ai = new GoogleGenAI({
-  apiKey: "AIzaSyANK5st4j7-73Ppg1fCiUXiRR0t2lGbFQE",
+  apiKey: "",
 });
 
 app.post("/generate", async (req, res) => {
