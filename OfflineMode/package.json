@@ -1,0 +1,16 @@
+{
+  "name": "offline-mode-backend",
+  "version": "1.0.0",
+  "description": "Backend for offline mode using Node.js",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
