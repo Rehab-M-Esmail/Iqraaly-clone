@@ -134,12 +134,16 @@ const SignUpPage: React.FC = () => {
             />
           </div>
           <div>
+          <Link href="/categories" passHref>
+
               <button
                 type="submit"
                 className="w-full py-3 bg-gradient-to-r from-orange-500 to-blue-950 text-white text-lg font-semibold rounded-lg hover:from-blue-950 hover:to-orange-600 focus:ring-4 focus:ring-orange-300 transition-all duration-300 transform hover:scale-105"
               >
                 Sign Up
               </button>
+              </Link>
+
           </div>
         </form>
         <div className="mt-6 text-center text-gray-300">
