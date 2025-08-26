@@ -3,6 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Next.js](https://img.shields.io/badge/Next.js-15.0-black)](https://nextjs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.18-green)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green)](https://www.mongodb.com/)
+[![Google GenAI](https://img.shields.io/badge/Google-GenAI-blue)](https://ai.google.dev/)
 
 AudioLoom is a full-stack web application for streaming audiobooks and podcasts, inspired by iqraaly.com. It features a modern Next.js frontend, a robust Express.js API, and a suite of AI-powered features for a personalized listening experience.
 
